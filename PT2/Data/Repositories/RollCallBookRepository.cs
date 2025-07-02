@@ -14,6 +14,11 @@ namespace PT2.Data.Repositories
             return _context.RollCallBooks.Where(rcb => rcb.TeachingScheduleId == scheduleId).ToList();
         }
 
+        public List<RollCallBook> GetByStudentId(int studentID)
+        {
+            return _context.RollCallBooks.Where(rcb => rcb.StudentId == studentID).ToList();
+        }
+
         public void removeRange(List<RollCallBook> rollCallBooks)
         {
             _context.RollCallBooks.RemoveRange(rollCallBooks);

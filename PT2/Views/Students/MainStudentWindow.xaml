@@ -13,8 +13,13 @@
     mc:Ignorable="d">
 
     <Grid Margin="20">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="17*" />
+            <ColumnDefinition Width="363*" />
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="24.978" />
+            <RowDefinition Height="22.982" />
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
@@ -22,6 +27,8 @@
         <!--  Search Bar  -->
         <StackPanel
             Grid.Row="0"
+            Grid.RowSpan="2"
+            Grid.ColumnSpan="2"
             Margin="0,0,0,20"
             Orientation="Horizontal">
             <Label
@@ -35,13 +42,14 @@
                 VerticalContentAlignment="Center"
                 BorderBrush="#CCCCCC"
                 BorderThickness="1"
-                Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" />
+                Text="{Binding SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
         </StackPanel>
 
         <!--  Student DataGrid  -->
         <DataGrid
             Name="StudentGrid"
-            Grid.Row="1"
+            Grid.Row="2"
+            Grid.ColumnSpan="2"
             AutoGenerateColumns="False"
             Background="White"
             BorderBrush="#DDDDDD"
@@ -52,7 +60,7 @@
             GridLinesVisibility="Horizontal"
             HorizontalGridLinesBrush="#E0E0E0"
             IsReadOnly="True"
-            ItemsSource="{Binding Students}"
+            ItemsSource="{Binding FilteredStudents}"
             RowHeaderWidth="0"
             SelectedItem="{Binding SelectedStudent, Mode=TwoWay}"
             SelectionMode="Single">
@@ -86,7 +94,9 @@
 
         <!--  Action Buttons  -->
         <StackPanel
-            Grid.Row="2"
+            Grid.Row="3"
+            Grid.Column="1"
+            Width="440"
             Margin="0,20,0,0"
             HorizontalAlignment="Right"
             Orientation="Horizontal">

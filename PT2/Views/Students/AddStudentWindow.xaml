@@ -39,7 +39,7 @@
             Padding="5"
             BorderBrush="#CCCCCC"
             BorderThickness="1"
-            Text="{Binding Roll}" />
+            Text="{Binding addingStudent.Roll}" />
 
         <Label
             Grid.Row="1"
@@ -55,7 +55,7 @@
             Padding="5"
             BorderBrush="#CCCCCC"
             BorderThickness="1"
-            Text="{Binding FirstName}" />
+            Text="{Binding addingStudent.FirstName}" />
 
         <Label
             Grid.Row="2"
@@ -71,7 +71,7 @@
             Padding="5"
             BorderBrush="#CCCCCC"
             BorderThickness="1"
-            Text="{Binding MidName}" />
+            Text="{Binding addingStudent.MidName}" />
 
         <Label
             Grid.Row="3"
@@ -87,7 +87,7 @@
             Padding="5"
             BorderBrush="#CCCCCC"
             BorderThickness="1"
-            Text="{Binding LastName}" />
+            Text="{Binding addingStudent.LastName}" />
 
         <StackPanel
             Grid.Row="4"
@@ -102,7 +102,6 @@
                 Background="#007ACC"
                 BorderThickness="0"
                 Command="{Binding SaveCommand}"
-                CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}"
                 Content="Save"
                 Cursor="Hand"
                 Foreground="White" />

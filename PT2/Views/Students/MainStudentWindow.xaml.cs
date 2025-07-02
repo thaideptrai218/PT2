@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PT2.ViewModels.Students;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,6 +23,7 @@ namespace PT2.Views.Students
         public MainStudentWindow()
         {
             InitializeComponent();
+            DataContext = new MainStudentWindowViewModel();
         }
     }
 }

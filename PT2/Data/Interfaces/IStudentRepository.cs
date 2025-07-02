@@ -13,5 +13,10 @@ namespace PT2.Data.Interfaces
         void add(Student student);
         void remove(Student student);
         void update(Student updatedStudent);
+        int GetNextId();
+        bool checkRollNumber(Student s);
+        Student getByID(int id);
+
+        void deleteCascade(Student student);
     }
 }

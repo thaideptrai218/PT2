@@ -8,5 +8,6 @@ namespace PT2.Data.Interfaces
         void add(Course course);
         void remove(Course deletedStudent);
         void update(Course updatedStudent);
+
     }
 }
