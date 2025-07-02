@@ -16,18 +16,16 @@
             <RowDefinition Height="15*" />
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <ComboBox
-                Name="cbCourses"
-                Width="250"
-                Height="30"
-                Margin="0,0,20,0"
-                DisplayMemberPath="CourseCode"
-                ItemsSource="{Binding Courses}"
-                SelectedValue="{Binding FilteredText, UpdateSourceTrigger=PropertyChanged}"
-                SelectedValuePath="CourseId" />
-            <TextBox Text="{Binding FilteredText, UpdateSourceTrigger=PropertyChanged}" Width="200" Height="30" />
-        </StackPanel>
+        <ComboBox
+            Name="cbCourses"
+            Grid.Row="0"
+            Width="250"
+            Height="30"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            DisplayMemberPath="CourseCode"
+            ItemsSource="{Binding Courses}"
+            SelectedItem="{Binding SelectedCourse, Mode=TwoWay}" />
 
         <DataGrid
             Name="ScheduleGrid"
@@ -37,15 +35,33 @@
             Background="Bisque"
             IsReadOnly="True"
             ItemsSource="{Binding FilteredCourseSchedules}"
-            SelectedItem="{Binding SelectedCourseSchedule, Mode=TwoWay}"
+            SelectedItem="{Binding SelectedRecord, Mode=TwoWay}"
             SelectionMode="Single">
             <DataGrid.Columns>
-                <DataGridTextColumn Width="120" Binding="{Binding TeachingScheduleId}" Header="TeachingScheduleId" />
-                <DataGridTextColumn Width="70" Binding="{Binding CourseId}" Header="CourseID" />
-                <DataGridTextColumn Width="200" Binding="{Binding TeachingDate}" Header="TeachingDate" />
-                <DataGridTextColumn Width="50" Binding="{Binding Slot}" Header="Slot" />
-                <DataGridTextColumn Width="100" Binding="{Binding RoomId}" Header="RoomID" />
-                <DataGridTextColumn Width="100" Binding="{Binding Description}" Header="Description" />
+                <DataGridTextColumn
+                    Width="120"
+                    Binding="{Binding TeachingScheduleId}"
+                    Header="TeachingScheduleId" />
+                <DataGridTextColumn
+                    Width="70"
+                    Binding="{Binding CourseId}"
+                    Header="CourseID" />
+                <DataGridTextColumn
+                    Width="200"
+                    Binding="{Binding TeachingDate}"
+                    Header="TeachingDate" />
+                <DataGridTextColumn
+                    Width="50"
+                    Binding="{Binding Slot}"
+                    Header="Slot" />
+                <DataGridTextColumn
+                    Width="100"
+                    Binding="{Binding RoomId}"
+                    Header="RoomID" />
+                <DataGridTextColumn
+                    Width="100"
+                    Binding="{Binding Description}"
+                    Header="Description" />
             </DataGrid.Columns>
         </DataGrid>
         <StackPanel
@@ -65,7 +81,7 @@
                 Width="100"
                 Height="40"
                 Margin="0,0,20,0"
-                Command="{Binding EditCommand}"
+                Command="{Binding UpdateCommand}"
                 Content="Edit" />
             <Button
                 Name="btnDelete"

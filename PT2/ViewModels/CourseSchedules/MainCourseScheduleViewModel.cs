@@ -12,6 +12,7 @@ using PT2.Data;
 using PT2.Data.Repositories;
 using PT2.Data.Interfaces;
 using System.ComponentModel;
+using PT2.Views.CourseSchedules;
 
 namespace PT2.ViewModels.CourseSchedules
 {
@@ -34,17 +35,19 @@ namespace PT2.ViewModels.CourseSchedules
             }
         }
 
-        private string _filteredText;
-        public string FilteredText
+        private Course _selectedCourse;
+        public Course SelectedCourse
         {
-            get => _filteredText;
+            get => _selectedCourse;
             set
             {
-                _filteredText = value;
+                _selectedCourse = value;
                 OnPropertyChanged();
                 Filter();
             }
         }
+
+        public CourseSchedule SelectedRecord { get; set; }
 
         public ICommand AddCommand { get; set; }
         public ICommand DeleteCommand { get; set; }
@@ -69,15 +72,22 @@ namespace PT2.ViewModels.CourseSchedules
             _courseRepository = new CourseRepository();
             LoadData();
             AddCommand = new RelayCommand(Add);
-            DeleteCommand = new RelayCommand(Delete, () => SelectedCourseSchedule != null);
-            UpdateCommand = new RelayCommand(Update, () => SelectedCourseSchedule != null);
+            DeleteCommand = new RelayCommand(Delete, () => SelectedRecord != null);
+            UpdateCommand = new RelayCommand(Update, () => SelectedRecord != null);
             ResetCommand = new RelayCommand(Reset);
         }
 
         // PRIVATE METHODS FOR COMMANDS
         private void Add()
         {
+            var addCourseScheduleWindow = new PT2.Views.CourseSchedules.AddCourseScheduleWindow();
+            var addCourseScheduleViewModel = (AddCourseScheduleViewModel)addCourseScheduleWindow.DataContext;
+            addCourseScheduleWindow.ShowDialog();
 
+            if (addCourseScheduleViewModel.AddedCourseSchedule != null)
+            {
+                CourseSchedules.Add(addCourseScheduleViewModel.AddedCourseSchedule);
+            }
         }
 
         private void Update()
@@ -92,17 +102,19 @@ namespace PT2.ViewModels.CourseSchedules
 
         private void Reset()
         {
+            SelectedCourse = null;
+            SelectedRecord = null;
         }
 
         private void Filter()
         {
             FilteredCourseSchedules.Filter = item =>
             {
-                if (string.IsNullOrEmpty(FilteredText))
+                if (SelectedCourse == null)
                     return true;
 
                 var courseSchedule = item as CourseSchedule;
-                return courseSchedule.CourseId.ToString().Contains(FilteredText, StringComparison.OrdinalIgnoreCase);
+                return courseSchedule.CourseId == SelectedCourse.CourseId;
             };
         }
 
