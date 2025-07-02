@@ -1,109 +1,27 @@
-﻿using PT2.Models.Base;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace PT2.Models;
 
-public partial class CourseSchedule : ModelBase
+public partial class CourseSchedule
 {
-    private int _teachingScheduleId;
     [Key]
-    public int TeachingScheduleId
-    {
-        get => _teachingScheduleId;
-        set
-        {
-            _teachingScheduleId = value;
-            OnPropertyChanged();
-        }
-    }
+    public int TeachingScheduleId { get; set; }
 
-    private int? _courseId;
-    public int? CourseId
-    {
-        get => _courseId;
-        set
-        {
-            _courseId = value;
-            OnPropertyChanged();
-        }
-    }
+    public int? CourseId { get; set; }
 
-    private DateTime? _teachingDate;
-    public DateTime? TeachingDate
-    {
-        get => _teachingDate;
-        set
-        {
-            _teachingDate = value;
-            OnPropertyChanged();
-        }
-    }
+    public DateTime? TeachingDate { get; set; }
 
-    private int? _slot;
-    public int? Slot
-    {
-        get => _slot;
-        set
-        {
-            _slot = value;
-            OnPropertyChanged();
-        }
-    }
+    public int? Slot { get; set; }
 
-    private int? _roomId;
-    public int? RoomId
-    {
-        get => _roomId;
-        set
-        {
-            _roomId = value;
-            OnPropertyChanged();
-        }
-    }
+    public int? RoomId { get; set; }
 
-    private string? _description;
-    public string? Description
-    {
-        get => _description;
-        set
-        {
-            _description = value;
-            OnPropertyChanged();
-        }
-    }
+    public string? Description { get; set; }
 
-    private Course? _course;
-    public virtual Course? Course
-    {
-        get => _course;
-        set
-        {
-            _course = value;
-            OnPropertyChanged();
-        }
-    }
+    public virtual Course? Course { get; set; }
 
-    private ICollection<RollCallBook> _rollCallBooks = new List<RollCallBook>();
-    public virtual ICollection<RollCallBook> RollCallBooks
-    {
-        get => _rollCallBooks;
-        set
-        {
-            _rollCallBooks = value;
-            OnPropertyChanged();
-        }
-    }
+    public virtual ICollection<RollCallBook> RollCallBooks { get; set; } = new List<RollCallBook>();
 
-    private Room? _room;
-    public virtual Room? Room
-    {
-        get => _room;
-        set
-        {
-            _room = value;
-            OnPropertyChanged();
-        }
-    }
+    public virtual Room? Room { get; set; }
 }

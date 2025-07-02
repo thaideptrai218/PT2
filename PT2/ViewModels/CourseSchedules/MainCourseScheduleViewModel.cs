@@ -101,6 +101,15 @@ namespace PT2.ViewModels.CourseSchedules
             editViewModel.CloseAction = new Action(editWindow.Close);
             editWindow.ShowDialog();
 
+            if (editViewModel.UpdatedCourseSchedule != null)
+            {
+                var oldSchedule = CourseSchedules.FirstOrDefault(cs => cs.TeachingScheduleId == editViewModel.UpdatedCourseSchedule.TeachingScheduleId);
+                if (oldSchedule != null)
+                {
+                    CourseSchedules.Remove(oldSchedule);
+                    CourseSchedules.Add(editViewModel.UpdatedCourseSchedule);
+                }
+            }
         }
 
         private void Delete()

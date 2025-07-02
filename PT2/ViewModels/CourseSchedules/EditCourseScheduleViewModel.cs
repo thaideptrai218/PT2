@@ -43,6 +43,7 @@ namespace PT2.ViewModels.CourseSchedules
 
         public ICommand SaveCommand { get; set; }
         public Action CloseAction { get; set; }
+        public CourseSchedule UpdatedCourseSchedule { get; private set; }
         private ICourseRepository _courseRepository;
         private IRoomRepository _roomRepository;
         private ICourseScheduleRepository _courseScheduleRepository;
@@ -71,6 +72,7 @@ namespace PT2.ViewModels.CourseSchedules
             }
 
             _courseScheduleRepository.update(editingCourseSchedule); // Use the update method
+            this.UpdatedCourseSchedule = editingCourseSchedule;
             CloseAction?.Invoke();
         }
 
