@@ -24,6 +24,7 @@ namespace PT2.Data.Repositories
 
         public void remove(CourseSchedule courseSchedule)
         {
+            
             _context.CourseSchedules.Remove(courseSchedule);
             _context.SaveChanges();
         }

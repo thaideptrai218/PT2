@@ -13,6 +13,7 @@ using PT2.Data.Repositories;
 using PT2.Data.Interfaces;
 using System.ComponentModel;
 using PT2.Views.CourseSchedules;
+using System.Windows;
 
 namespace PT2.ViewModels.CourseSchedules
 {
@@ -56,6 +57,7 @@ namespace PT2.ViewModels.CourseSchedules
 
         private ICourseScheduleRepository _courseScheduleRepository;
         private ICourseRepository _courseRepository;
+        private IRollCallBookRepository _rollCallBookRepository;
 
         private void LoadData()
         {
@@ -70,6 +72,7 @@ namespace PT2.ViewModels.CourseSchedules
         {
             _courseScheduleRepository = new CourseScheduleRepository();
             _courseRepository = new CourseRepository();
+            _rollCallBookRepository = new RollCallBookRepository();
             LoadData();
             AddCommand = new RelayCommand(Add);
             DeleteCommand = new RelayCommand(Delete, () => SelectedRecord != null);
@@ -97,7 +100,24 @@ namespace PT2.ViewModels.CourseSchedules
 
         private void Delete()
         {
+            var relatedRollCallBooks = _rollCallBookRepository.GetByScheduleId(SelectedRecord.TeachingScheduleId);
 
+            if (relatedRollCallBooks.Any())
+            {
+                var result = MessageBox.Show($"This schedule has {relatedRollCallBooks.Count} roll call records. Deleting it will also delete all of its history. Are you sure you want to continue?", "Delete Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                if (result == MessageBoxResult.Yes)
+                {
+                    _rollCallBookRepository.removeRange(relatedRollCallBooks);
+
+                }
+                else
+                {
+                    return; // User cancelled
+                }
+            }
+            _courseScheduleRepository.remove(SelectedRecord);
+            CourseSchedules.Remove(SelectedRecord);
+            SelectedRecord = null;
         }
 
         private void Reset()
