@@ -95,6 +95,11 @@ namespace PT2.ViewModels.CourseSchedules
 
         private void Update()
         {
+            var editViewModel = new EditCourseScheduleViewModel(SelectedRecord);
+            var editWindow = new PT2.Views.CourseSchedules.EditCourseScheduleWindow();
+            editWindow.DataContext = editViewModel;
+            editViewModel.CloseAction = new Action(editWindow.Close);
+            editWindow.ShowDialog();
 
         }
 
