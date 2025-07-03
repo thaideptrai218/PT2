@@ -51,7 +51,7 @@ namespace PT2.Data.Repositories
 
         public bool checkRollNumber(Student student)
         {
-            return _context.Students.Any(s => s.Roll == student.Roll);
+            return _context.Students.Any(s => s.Roll.Equals(student.Roll));
         }
 
         public Student getByID(int id)

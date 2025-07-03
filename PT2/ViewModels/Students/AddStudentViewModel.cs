@@ -26,7 +26,7 @@ namespace PT2.ViewModels.Students
         {
             if (string.IsNullOrEmpty(addingStudent.FirstName) || string.IsNullOrEmpty(addingStudent.LastName) || string.IsNullOrEmpty(addingStudent.Roll)) return;
 
-            string regex = "([A-Z]{2}\\d{6})";
+            string regex = "^[A-Z]{2}\\d{6}$";
             Regex re = new Regex(regex);
             if (!re.IsMatch(addingStudent.Roll))
             {
@@ -34,7 +34,7 @@ namespace PT2.ViewModels.Students
                 return;
             }
 
-            if (_studentRepository.checkRollNumber(addedStudent))
+            if (_studentRepository.checkRollNumber(addingStudent))
             {
                 MessageBox.Show("RollNumber duplicated", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
