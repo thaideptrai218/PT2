@@ -15,6 +15,11 @@ public partial class Student
 
     public string? LastName { get; set; }
 
+    public string FullName
+    {
+        get => $"{FirstName} {MidName} {LastName}";
+    }
+
     public virtual ICollection<RollCallBook> RollCallBooks { get; set; } = new List<RollCallBook>();
 
     public virtual ICollection<Course> Courses { get; set; } = new List<Course>();

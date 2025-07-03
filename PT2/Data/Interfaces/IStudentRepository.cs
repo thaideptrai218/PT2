@@ -10,6 +10,7 @@ namespace PT2.Data.Interfaces
     interface IStudentRepository
     {
         List<Student> GetAll();
+        List<Student> GetAllWithStudentObject();
         void add(Student student);
         void remove(Student student);
         void update(Student updatedStudent);

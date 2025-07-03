@@ -102,5 +102,10 @@ namespace PT2.Data.Repositories
                 }
             }
         }
+
+        public List<Student> GetAllWithStudentObject()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
