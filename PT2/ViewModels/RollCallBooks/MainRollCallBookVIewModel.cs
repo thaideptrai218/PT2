@@ -66,6 +66,7 @@ namespace PT2.ViewModels.RollCallBooks
             SaveChangesCommand = new RelayCommand(SaveChanges);
             FilterdRollCallBooks = CollectionViewSource.GetDefaultView(RollCallBooks);
             FilterdRollCallBooks.Filter = (e) => false;
+            FilteredCourseSchdules.Filter = (e) => false;
         }
 
         private void LoadData()
@@ -78,24 +79,25 @@ namespace PT2.ViewModels.RollCallBooks
 
         private void Change()
         {
-            if (SelectedCourse != null)
+
+            FilteredCourseSchdules.Filter = (element) =>
             {
-                FilteredCourseSchdules.Filter = (element) =>
-                {
-                    CourseSchedule e = (CourseSchedule)element;
-                    return SelectedCourse.CourseId == e.CourseId;
-                };
-            }
+                if (SelectedCourse == null) return false;
+                CourseSchedule e = (CourseSchedule)element;
+                if (e == null) return false;
+                return SelectedCourse.CourseId == e.CourseId;
+            };
         }
+
         private void Filter()
         {
-                FilterdRollCallBooks.Filter = (element) =>
-                {
-                    if (SelectedCourseSchedule == null) return false;
-                    RollCallBook e = (RollCallBook)element;
-                    if (e == null) return false;
-                    return SelectedCourseSchedule.TeachingScheduleId == e.TeachingScheduleId;
-                };
+            FilterdRollCallBooks.Filter = (element) =>
+            {
+                if (SelectedCourseSchedule == null) return false;
+                RollCallBook e = (RollCallBook)element;
+                if (e == null) return false;
+                return SelectedCourseSchedule.TeachingScheduleId == e.TeachingScheduleId;
+            };
         }
 
         private void SaveChanges()
