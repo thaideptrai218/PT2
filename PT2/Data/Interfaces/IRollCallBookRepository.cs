@@ -11,5 +11,7 @@ namespace PT2.Data.Interfaces
         void removeRange(List<RollCallBook> rollCallBooks);
         public List<RollCallBook> GetAll();
         void SaveChanges();
+
+        void Delete(RollCallBook rollCallBooks);
     }
 }

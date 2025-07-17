@@ -1,15 +1,16 @@
-﻿<Window x:Class="PT2.Views.RollCallBooks.MainRollCallBookWIndow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:PT2.Views.RollCallBooks"
-        mc:Ignorable="d"
-        Title="Roll Call"
-        Width="800"
-        Height="600"
-        Background="#F5F5F5"
-        FontFamily="Segoe UI">
+﻿<Window
+    x:Class="PT2.Views.RollCallBooks.MainRollCallBookWIndow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:PT2.Views.RollCallBooks"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="Roll Call"
+    Width="800"
+    Height="600"
+    Background="#F5F5F5"
+    FontFamily="Segoe UI"
+    mc:Ignorable="d">
     <Grid Margin="20">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -18,55 +19,98 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,20">
-            <TextBlock Text="Course:" FontWeight="SemiBold" VerticalAlignment="Center" Margin="0,0,10,0" />
-            <ComboBox Width="250"
-                      ItemsSource="{Binding Courses}"
-                      DisplayMemberPath="CourseCode"
-                      SelectedItem="{Binding SelectedCourse}"
-                      VerticalContentAlignment="Center"
-                      Padding="5"/>
+        <StackPanel
+            Grid.Row="0"
+            Margin="0,0,0,20"
+            Orientation="Horizontal">
+            <TextBlock
+                Margin="0,0,10,0"
+                VerticalAlignment="Center"
+                FontWeight="SemiBold"
+                Text="Course:" />
+            <ComboBox
+                Width="250"
+                Padding="5"
+                VerticalContentAlignment="Center"
+                DisplayMemberPath="CourseCode"
+                ItemsSource="{Binding Courses}"
+                SelectedItem="{Binding SelectedCourse}" />
 
-            <TextBlock Text="Date:" FontWeight="SemiBold" VerticalAlignment="Center" Margin="20,0,10,0" />
-            <ComboBox Width="200"
-                      ItemsSource="{Binding FilteredCourseSchdules}"
-                      DisplayMemberPath="TeachingDate"
-                      SelectedItem="{Binding SelectedCourseSchedule}"
-                      VerticalContentAlignment="Center"
-                      Padding="5"/>
+            <TextBlock
+                Margin="20,0,10,0"
+                VerticalAlignment="Center"
+                FontWeight="SemiBold"
+                Text="Date:" />
+            <ComboBox
+                Width="200"
+                Padding="5"
+                VerticalContentAlignment="Center"
+                DisplayMemberPath="TeachingDate"
+                ItemsSource="{Binding FilteredCourseSchdules}"
+                SelectedItem="{Binding SelectedCourseSchedule}" />
         </StackPanel>
 
-        <DataGrid Grid.Row="2"
-                  ItemsSource="{Binding FilterdRollCallBooks}"
-                  AutoGenerateColumns="False"
-                  CanUserAddRows="False"
-                  Background="White"
-                  BorderBrush="#D0D0D0"
-                  HorizontalGridLinesBrush="#E0E0E0"
-                  VerticalGridLinesBrush="#E0E0E0"
-                  RowHeaderWidth="0">
+        <DataGrid
+            Grid.Row="2"
+            AutoGenerateColumns="False"
+            Background="White"
+            BorderBrush="#D0D0D0"
+            CanUserAddRows="False"
+            HorizontalGridLinesBrush="#E0E0E0"
+            ItemsSource="{Binding FilterdRollCallBooks}"
+            RowHeaderWidth="0"
+            VerticalGridLinesBrush="#E0E0E0">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Student ID" Binding="{Binding StudentId}" Width="100" IsReadOnly="True" />
-                <DataGridTextColumn Header="Roll #" Binding="{Binding Student.Roll}" Width="100" IsReadOnly="True" />
-                <DataGridTextColumn Header="Full Name" Binding="{Binding Student.FullName}" Width="*" IsReadOnly="True" />
-                <DataGridCheckBoxColumn Header="Absent" Binding="{Binding IsAbsent, UpdateSourceTrigger=PropertyChanged}" Width="100" />
-                <DataGridTextColumn Header="Comment" Binding="{Binding Comment, UpdateSourceTrigger=PropertyChanged}" Width="2*" />
+                <DataGridTextColumn
+                    Width="100"
+                    Binding="{Binding StudentId}"
+                    Header="Student ID"
+                    IsReadOnly="True" />
+                <DataGridTextColumn
+                    Width="100"
+                    Binding="{Binding Student.Roll}"
+                    Header="Roll #"
+                    IsReadOnly="True" />
+                <DataGridTextColumn
+                    Width="*"
+                    Binding="{Binding Student.FullName}"
+                    Header="Full Name"
+                    IsReadOnly="True" />
+                <DataGridCheckBoxColumn
+                    Width="100"
+                    Binding="{Binding IsAbsent, UpdateSourceTrigger=PropertyChanged}"
+                    Header="Absent" />
+                <DataGridTextColumn
+                    Width="2*"
+                    Binding="{Binding Comment, UpdateSourceTrigger=PropertyChanged}"
+                    Header="Comment" />
+                <DataGridTemplateColumn Width="100" Header="Delete">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button
+                                Command="{Binding DataContext.DeleteCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                CommandParameter="{Binding}"
+                                Content="Delete" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
 
-        <Button Grid.Row="3"
-                Content="Save Changes"
-                Command="{Binding SaveChangesCommand}"
-                HorizontalAlignment="Right"
-                Margin="0,20,0,0"
-                Padding="20,10"
-                Background="#007ACC"
-                Foreground="White"
-                BorderThickness="0"
-                FontWeight="SemiBold">
+        <Button
+            Grid.Row="3"
+            Margin="0,20,0,0"
+            Padding="20,10"
+            HorizontalAlignment="Right"
+            Background="#007ACC"
+            BorderThickness="0"
+            Command="{Binding SaveChangesCommand}"
+            Content="Save Changes"
+            FontWeight="SemiBold"
+            Foreground="White">
             <Button.Resources>
                 <Style TargetType="Border">
-                    <Setter Property="CornerRadius" Value="3"/>
+                    <Setter Property="CornerRadius" Value="3" />
                 </Style>
             </Button.Resources>
         </Button>

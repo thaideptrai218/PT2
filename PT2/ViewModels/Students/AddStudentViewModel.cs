@@ -1,6 +1,7 @@
 ﻿using PT2.Data.Interfaces;
 using PT2.Data.Repositories;
 using PT2.Models;
+using PT2.ViewModels.Base;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Input;

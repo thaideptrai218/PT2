@@ -59,7 +59,6 @@
             CanUserResizeRows="False"
             GridLinesVisibility="Horizontal"
             HorizontalGridLinesBrush="#E0E0E0"
-            IsReadOnly="True"
             ItemsSource="{Binding FilteredStudents}"
             RowHeaderWidth="0"
             SelectedItem="{Binding SelectedStudent, Mode=TwoWay}"
@@ -89,6 +88,16 @@
                     Width="*"
                     Binding="{Binding FullName}"
                     Header="Full Name" />
+                <DataGridTemplateColumn Width="100" Header="Update">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button
+                                Command="{Binding DataContext.EditCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                CommandParameter="{Binding}"
+                                Content="Update" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
 
@@ -119,6 +128,7 @@
                 Background="#007ACC"
                 BorderThickness="0"
                 Command="{Binding EditCommand}"
+                CommandParameter="{Binding SelectedStudent}"
                 Content="Edit"
                 Cursor="Hand"
                 Foreground="White" />

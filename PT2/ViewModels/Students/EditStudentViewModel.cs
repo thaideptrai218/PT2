@@ -1,6 +1,7 @@
 ﻿using PT2.Data.Interfaces;
 using PT2.Data.Repositories;
 using PT2.Models;
+using PT2.ViewModels.Base;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,26 +34,26 @@ namespace PT2.ViewModels.Students
 
         private void UpdateStudent()
         {
-            if (string.IsNullOrEmpty(editingStudent.FirstName) || string.IsNullOrEmpty(editingStudent.LastName) || string.IsNullOrEmpty(editingStudent.Roll))
-            {
-                MessageBox.Show("Name and Roll must not empty", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
-            ;
+            //if (string.IsNullOrEmpty(editingStudent.FirstName) || string.IsNullOrEmpty(editingStudent.LastName) || string.IsNullOrEmpty(editingStudent.Roll))
+            //{
+            //    MessageBox.Show("Name and Roll must not empty", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            //    return;
+            //}
+            //;
 
-            string regex = "([A-Z]{2}\\d{6})";
-            Regex re = new Regex(regex);
-            if (!re.IsMatch(editingStudent.Roll))
-            {
-                MessageBox.Show("RollNumber must be NNXXXXXX", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
+            //string regex = "([A-Z]{2}\\d{6})";
+            //Regex re = new Regex(regex);
+            //if (!re.IsMatch(editingStudent.Roll))
+            //{
+            //    MessageBox.Show("RollNumber must be NNXXXXXX", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            //    return;
+            //}
 
-            if (!previousRoll.Equals(editingStudent.Roll) && _studentRepository.checkRollNumber(editingStudent))
-            {
-                MessageBox.Show("RollNumber duplicated", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
+            //if (!previousRoll.Equals(editingStudent.Roll) && _studentRepository.checkRollNumber(editingStudent))
+            //{
+            //    MessageBox.Show("RollNumber duplicated", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            //    return;
+            //}
 
             _studentRepository.update(editingStudent);
             editedStudent = editingStudent;

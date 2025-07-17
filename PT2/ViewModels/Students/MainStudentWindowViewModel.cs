@@ -3,7 +3,6 @@ using PT2.Data.Interfaces;
 using PT2.Data.Repositories;
 using PT2.Models;
 using PT2.ViewModels.Base;
-using PT2.ViewModels.Students;
 using PT2.Views.Students;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -44,7 +43,7 @@ namespace PT2.ViewModels.Students
             _rollCallBookRepository = new RollCallBookRepository();
             LoadData();
             AddCommand = new RelayCommand(AddStudent);
-            EditCommand = new RelayCommand(EditStudent, () => SelectedStudent != null);
+            EditCommand = new RelayCommand<Student>(EditStudent);
             DeleteCommand = new RelayCommand(DeleteStudent, () => SelectedStudent != null);
             ResetCommand = new RelayCommand(ResetChoice);
         }
@@ -67,14 +66,13 @@ namespace PT2.ViewModels.Students
             }
         }
 
-        private void EditStudent()
+        private void EditStudent(Student student)
         {
             var editStudentWindow = new EditStudentWindow();
-            var editStudentViewModel = new EditStudentViewModel(SelectedStudent);
+            var editStudentViewModel = new EditStudentViewModel(student);
             editStudentViewModel.CloseAction = () => { editStudentWindow.Close(); };
             editStudentWindow.DataContext = editStudentViewModel;
 
-            editStudentWindow.ShowDialog();
 
             if (editStudentViewModel.editedStudent != null)
             {

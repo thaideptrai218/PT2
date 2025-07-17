@@ -56,6 +56,7 @@ namespace PT2.ViewModels.RollCallBooks
         private ICourseRepository _courseRepository;
 
         public ICommand SaveChangesCommand { get; }
+        public ICommand DeleteCommand { get; }
 
         public MainRollCallBookVIewModel()
         {
@@ -64,6 +65,7 @@ namespace PT2.ViewModels.RollCallBooks
             _courseRepository = new CourseRepository();
             LoadData();
             SaveChangesCommand = new RelayCommand(SaveChanges);
+            DeleteCommand = new RelayCommand<RollCallBook>(DeleteRollCallBook);
             FilterdRollCallBooks = CollectionViewSource.GetDefaultView(RollCallBooks);
             FilterdRollCallBooks.Filter = (e) => false;
             FilteredCourseSchdules.Filter = (e) => false;
@@ -108,6 +110,16 @@ namespace PT2.ViewModels.RollCallBooks
             {
                 _rollCallBooksRepository.SaveChanges();
                 MessageBox.Show("Saved successfully", "Success!", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+        }
+
+        private void DeleteRollCallBook(RollCallBook rollCallBook)
+        {
+            var result = MessageBox.Show("Are you sure to delete", "Sure?", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+            if (result == MessageBoxResult.Yes)
+            {
+                _rollCallBooksRepository.Delete(rollCallBook);
+                RollCallBooks.Remove(rollCallBook);
             }
         }
     }

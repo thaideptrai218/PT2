@@ -26,6 +26,12 @@ namespace PT2.Data.Repositories
             _context.SaveChanges();
         }
 
+        public void Delete(RollCallBook rollCallBooks)
+        {
+            _context.RollCallBooks.Remove(rollCallBooks);
+            _context.SaveChanges();
+        }
+
         public List<RollCallBook> GetAll()
         {
             return _context.RollCallBooks.Include(rcb => rcb.Student).ToList();
